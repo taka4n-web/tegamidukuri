@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>てがみを かこう</title>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbf7ee;--card:#fffdf7;--ink:#33312d;--soft:#8a857a;--peach:#f6d5bf;--mint:#d4e8d6;--yellow:#f7ebb0;--line:#d9d2c0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#26231f;--card:#2f2b26;--ink:#efe9da;--soft:#a39d8e;--peach:#6b4a39;--mint:#3d5443;--yellow:#625a2c;--line:#48433a}}
+:root[data-theme="dark"]{--paper:#26231f;--card:#2f2b26;--ink:#efe9da;--soft:#a39d8e;--peach:#6b4a39;--mint:#3d5443;--yellow:#625a2c;--line:#48433a}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:'UD デジタル 教科書体 N-B','UD デジタル 教科書体 NK-B','UD Digi Kyokasho N-B','UDDigiKyokashoN-B','Klee One','Hiragino Maru Gothic ProN',sans-serif;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .35 0 0 0 .08 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");font-size:20px;font-weight:700;line-height:1.7;min-height:100%}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:32px;font-weight:700;margin:4px 0 8px;text-align:center}
+.wob{border:1.3px solid var(--ink);border-radius:255px 14px 225px 14px/14px 225px 14px 255px;box-shadow:2px 3px 0 -1px var(--line)}
+.dots{display:flex;gap:8px;justify-content:center;margin:6px 0 14px}
+.dots i{width:14px;height:14px;border:1.5px solid var(--ink);border-radius:50%;display:block}
+.dots i.on{background:var(--yellow)}
+.dots i.now{background:var(--peach);transform:scale(1.25)}
+.top{display:flex;align-items:flex-start;gap:8px}
+.top svg{flex:none;width:104px;height:120px}
+.bubble{position:relative;background:var(--card);padding:14px 18px;margin-top:6px;flex:1}
+.bubble:before{content:"";position:absolute;left:-12px;top:30px;width:20px;height:20px;background:var(--card);border-left:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:rotate(45deg)}
+.card{background:var(--card);padding:16px;margin-top:14px}
+.frame{font-size:20px}
+.frame .pre,.frame .post{color:var(--soft)}
+input[type=text]{width:100%;font:inherit;font-size:22px;color:var(--ink);background:transparent;border:0;border-bottom:2px dashed var(--ink);padding:6px 4px;outline:0;margin:4px 0}
+input[type=text]:focus{background:var(--yellow)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chips p{width:100%;margin:0;font-size:15px;color:var(--soft)}
+button{font:inherit;color:var(--ink);cursor:pointer}
+.chip{background:var(--mint);padding:4px 14px;font-size:18px;line-height:1.5}
+.chip:active{background:var(--yellow)}
+.choice{display:flex;gap:12px;margin-top:6px}
+.choice button{flex:1;background:var(--mint);padding:10px 8px 14px;font-size:24px;display:flex;flex-direction:column;align-items:center}.choice svg{width:120px;height:140px}
+.choice button.sel{background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.nav button{padding:8px 22px;background:var(--card);font-size:20px}
+.nav .go{background:var(--peach);flex:1;max-width:60%}
+.nav button:disabled{opacity:.35;cursor:default}
+.paper{background:var(--card);padding:22px 22px 26px;margin-top:10px;font-size:21px;line-height:2.1;white-space:pre-wrap;word-break:break-all;min-height:300px}
+.paper.v{writing-mode:vertical-rl;background-image:none;line-height:1.9;height:440px;overflow-x:auto;overflow-y:hidden;white-space:pre-wrap;word-break:normal}
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.tools button{background:var(--mint);padding:6px 16px;font-size:18px}
+.hint{text-align:center;color:var(--soft);font-size:15px;margin:10px 0 0}
+.aro{display:flex;justify-content:flex-end;align-items:center;gap:4px;font-size:15px;color:var(--soft)}.pair{display:flex;justify-content:center;margin-top:10px}.pair svg{width:120px;height:140px}.pair svg:last-child{margin-left:-14px}.list{display:flex;flex-direction:column;gap:10px;margin-top:12px}.item{display:grid;grid-template-columns:38px 1fr;gap:0 12px;text-align:left;background:var(--card);padding:10px 14px;font-size:19px;line-height:1.5;width:100%;align-items:center}.item .no{grid-row:span 2;width:36px;height:36px;border:1.3px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--yellow);font-size:18px}.item.ok .no{background:var(--mint)}.item .ans{color:var(--soft);font-size:16px;grid-column:2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.item.lock{opacity:.4}.item:not(.lock):active{background:var(--yellow)}.nav .go.full{max-width:none}@media print{.top,.tools,.dots,h1,.hint{display:none}.paper{border:0}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="w"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.5"/></filter></svg>
+<main>
+<h1>てがみを かこう</h1><svg viewBox="0 0 160 8" width="160" height="8" style="display:block;margin:0 auto" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 5q20-5 40 0t40 0 40 0 30-1"/></svg>
+<div class="dots" id="dots"></div>
+<div id="app"></div>
+</main>
+<script>
+const frog=n=>{const g=n==='かえるくん',sk=g?'#92c481':'#d6ad78',cl=g?'#7fae6a':'#cfe0b0',pt=g?'#c9a46f':'#cfe0b0',W='var(--card)',er=g?9:7,ey=g?28:30;
+const H=g?'<path d="M40 30l5 3M80 30l-5 3M44 40l4 2M76 40l-4 2" stroke-width=".9"/>':'<circle cx="46" cy="42" r="1.1" fill="currentColor"/><circle cx="55" cy="40" r="1" fill="currentColor"/><circle cx="68" cy="41" r="1.1" fill="currentColor"/><circle cx="76" cy="44" r="1" fill="currentColor"/>';
+const J=g?'<path d="M60 60v42"/><circle cx="55" cy="68" r="1.7" fill="currentColor"/><circle cx="55" cy="80" r="1.7" fill="currentColor"/><circle cx="55" cy="92" r="1.7" fill="currentColor"/><path d="M40 74l8 6M42 88l8 6M70 74l8 6M72 88l8 6" stroke-width=".9"/>':'<path d="M60 60v42"/><circle cx="55" cy="70" r="1.7" fill="currentColor"/><circle cx="55" cy="84" r="1.7" fill="currentColor"/><path d="M40 70l3 3M46 80l3 3M70 72l3 3M76 86l3 3M42 92l3 3M72 96l3 3" stroke-width=".9"/>';
+return `<svg viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#w)"><path d="M34 128q-12 2-10 8h34v-8zM86 128q12 2 10 8H62v-8z" fill="${sk}"/><path d="M38 100h18v28H38zM64 100h18v28H64z" fill="${pt}"/><path d="M34 54Q28 82 32 102H88Q92 82 86 54Q60 62 34 54Z" fill="${cl}"/>${J}<path d="M36 60q-14 14-8 34M84 60q14 14 8 34"/><ellipse cx="28" cy="97" rx="4" ry="5" fill="${sk}"/><ellipse cx="92" cy="97" rx="4" ry="5" fill="${sk}"/><circle cx="${g?46:44}" cy="${ey}" r="${er}" fill="${sk}"/><circle cx="${g?74:76}" cy="${ey}" r="${er}" fill="${sk}"/><ellipse cx="60" cy="${g?42:44}" rx="${g?28:31}" ry="${g?14:12}" fill="${sk}"/><circle cx="${g?46:44}" cy="${ey}" r="${er-3}" fill="${W}"/><circle cx="${g?74:76}" cy="${ey}" r="${er-3}" fill="${W}"/><circle cx="${g?48:46}" cy="${ey+1}" r="1.9" fill="currentColor"/><circle cx="${g?76:78}" cy="${ey+1}" r="1.9" fill="currentColor"/><path d="M${g?40:39} ${ey}a${er-3} ${er-3} 0 0 1 ${2*(er-3)} 0zM${g?68:70} ${ey}a${er-3} ${er-3} 0 0 1 ${2*(er-3)} 0z" fill="${sk}"/><path d="${g?'M42 46q18 8 36 0':'M46 49q14-5 28 0'}"/><circle cx="57" cy="40" r=".8" fill="currentColor"/><circle cx="63" cy="40" r=".8" fill="currentColor"/>${H}</g></svg>`};
+const face=m=>{const mo={smile:'<path d="M50 56q5 5 10 0"/>',happy:'<path d="M49 54q6 11 12 0z" fill="#f4a09a"/>',think:'<ellipse cx="55" cy="58" rx="2.5" ry="3"/>',worry:'<path d="M49 59q3-4 6 0t6 0"/>'}[m];const br=m==='worry'?'<path d="M36 36l8 3M74 39l8-3"/>':m==='think'?'<path d="M36 38h8M66 34l8-3"/>':'';const cl=m==='think'?'<circle cx="92" cy="24" r="2.5"/><circle cx="98" cy="14" r="4"/>':m==='happy'?'<path d="M94 12v8M90 16h8M14 18v6M11 21h6"/>':'';return `<svg viewBox="0 0 110 125" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#w)"><path d="M38 84q-4 20-2 28h38q2-8-2-28z" fill="#cfe6f5" stroke="none" transform="translate(3,3)"/><circle cx="55" cy="50" r="32" fill="#fbe0cc" stroke="none" transform="translate(4,4)"/><circle cx="55" cy="50" r="32"/><path d="M38 84q-4 20-2 28h38q2-8-2-28"/><path d="M38 90q-14 4-16 14M72 90q14 4 16 14M44 112v8M66 112v8"/><path d="M50 19q-3-12 6-12q9 1 5 9q-3 3-6 1"/><circle cx="44" cy="50" r="2.4" fill="currentColor" stroke="none"/><circle cx="66" cy="50" r="2.4" fill="currentColor" stroke="none"/><ellipse cx="38" cy="58" rx="5" ry="3.5" fill="#f7a9a0" stroke="none" opacity=".7"/><ellipse cx="72" cy="58" rx="5" ry="3.5" fill="#f7a9a0" stroke="none" opacity=".7"/>${br}${mo}${cl}</g></svg>`};
+const ARROW='<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 4c14 2 22 6 30 16M33 20l-8-1M33 20l-1-8"/></svg>';
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const K='かえるくん',G='がまくん';
+const C={
+ did:{[G]:['てがみが こなくて かなしんでいました','げんかんの まえに すわっていました','ゆうびんうけを 見ていました','てがみを まっていました'],
+      [K]:['がまくんが かなしんでいるのを 見て、いっしょに かなしんでいました','いそいで てがみを かいてくれました','かたつむりくんに てがみを たのんでくれました','まどから ずっと のぞいていました']},
+ feel:{[G]:['かなしい','さびしい','ふあんな','がっかりした','うれしい','しあわせな'],
+       [K]:['しんぱいな','かなしい','やさしい','うれしい','わくわくした','しあわせな']},
+ think:{[G]:['かわいそうだ','さびしかったんだなあ','とても かなしかったんだなあ','うれしそうで よかった'],
+        [K]:['とても やさしい','すごい','かっこいい','ともだち おもい']},
+ would:{[G]:['いえで おとなしく まちます','ともだちに てがみを かきます','ほかの ことを して まちます','ともだちに あいに いきます','おかあさんに はなします'],
+        [K]:['いっしょに かなしみます','おはなしを ききます','そばに いてあげます','てがみを かきます','やさしく こえを かけます']},
+ compare:{[G]:['わたしも おなじで、さびしくなると おもいます','わたしは そんなに かなしくならないかもしれません','わたしは もっと がまんできると おもいます','わたしは もっと さびしくなると おもいます'],
+          [K]:['わたしも おなじ ことを すると おもいます','わたしは すぐには うごけないかもしれません','わたしは あまり やさしく できないかもしれません','わたしは もっと まよってしまうと おもいます']},
+ learn:{[G]:['がまくんの さびしい 気もちが よく わかりました','まっているときは、じかんが ながく なると おもいました','てがみを もらうと、うれしくなると おもいました','かなしい ときは、そばに いてほしいと おもいました','がまくんが うれしそうで、わたしも うれしくなりました'],
+        [K]:['かえるくんのように、やさしい 人に なりたいと おもいました','ともだちを たいせつに したいと おもいました','ともだちが こまっていたら、たすけたいと おもいました','ともだちって いいなと おもいました']},
+ end:{[G]:['てがみが とどいて よかったね。','ずっと なかよしで いてね。','かえるくんと なかよく してね。','よんでくれて ありがとう。'],
+      [K]:['きみは すてきな ともだちだね。','ずっと なかよしで いてね。','これからも やさしい かえるくんで いてね。','よんでくれて ありがとう。']}};
+const WP=a=>a.who===G?'わたしだったら、ともだちから てがみが こなくて かなしいとき、':'わたしだったら、かなしんでいる ともだちが いたら、';
+const steps=[
+ {id:'who',q:'だれに てがみを かく？',type:'choice',opts:[G,K]},
+ {id:'did',q:a=>`${a}は、おはなしの なかで どんな ことを していたかな？`,pre:a=>`${a.who}は、`,post:'ね。',chips:a=>C.did[a.who],ph:'したことを かこう'},
+ {id:'feel',q:a=>`そのとき、${a}は どんな 気もちだったと おもう？`,pre:'そのとき、',post:' 気もちだったと おもいます。',chips:a=>C.feel[a.who],ph:'気もちの ことば',hint:'ことばを ひとつ いれてね（れい：かなしい）'},
+ {id:'think',q:a=>`${a}の ことを、きみは どう おもった？`,pre:a=>`${a.who}は、`,post:'と おもいました。',chips:a=>C.think[a.who],ph:'おもったことを かこう'},
+ {id:'would',q:a=>`きみが ${a}だったら、どうする？ じぶんと くらべてみよう！`,pre:a=>WP(a),post:'。',chips:a=>C.would[a.who],ph:'どうするか かこう'},
+ {id:'compare',q:a=>`${a}と きみは、にているかな？ ちがうかな？`,pre:a=>`${a.who}と くらべると、`,post:'。',chips:a=>C.compare[a.who],ph:'にている・ちがうところ'},
+ {id:'learn',q:a=>a===G?`${a}の 気もちを かんがえて みて、きみは どんな ことを おもったかな？`:`${a}と くらべて みて、きみは どんな ことを かんじたかな？`,pre:'わたしは、',post:'。',chips:a=>C.learn[a.who],ph:'かんじたことを かこう'},
+ {id:'end',q:a=>`さいごに ${a}へ ひとこと おくろう！`,pre:'',post:'',chips:a=>C.end[a.who],ph:'ひとこと'}
+];
+const K1='一右雨円王音下火花貝学気九休玉金空月犬見五口校左三山子四糸字耳七車手十出女小上森人水正生青夕石赤千川先早草足村大男竹中虫町天田土二日入年白八百文木本名目立力林六';
+const val=(s,a)=>typeof s==='function'?s(a):s;
+let A={},vertical=false,FINAL=null;
+const app=document.getElementById('app'),dots=document.getElementById('dots');
+const Q=s=>val(s.q,A.who||'その人');
+function home(){
+ FINAL=null;dots.innerHTML='';
+ const n=steps.filter(s=>A[s.id]).length,all=n===steps.length;
+ app.innerHTML=`<div class="top">${face('smile')}<div class="bubble wob">${n?`${steps.length}こ中 ${n}こ できたよ！`:'かけるところから かいてみよう！'}</div></div>
+ <div class="pair">${frog('がまくん')}${frog('かえるくん')}</div>
+ <div class="list">${steps.map((s,k)=>{const lock=k>0&&!A.who,a=A[s.id];return `<button class="item wob ${a?'ok':''} ${lock?'lock':''}" data-k="${k}" ${lock?'disabled':''}><b class="no">${a?'✓':k+1}</b><span>${esc(Q(s))}</span>${a?`<span class="ans">${esc(a)}</span>`:(lock?'<span class="ans">まず 1ばんを えらんでね</span>':'')}</button>`}).join('')}</div>
+ <div class="nav"><span></span><button class="wob go full" id="mk" ${all?'':'disabled'}>${all?'てがみを つくる':'ぜんぶ かくと つくれるよ'}</button></div>`;
+ app.querySelectorAll('.item').forEach(b=>b.onclick=()=>edit(+b.dataset.k));
+ document.getElementById('mk').onclick=done;
+}
+function edit(k){
+ const s=steps[k],q=Q(s),ctx={who:A.who};
+ let body='';
+ if(s.type==='choice'){
+  body=`<div class="choice">${s.opts.map(o=>`<button class="wob ${A[s.id]===o?'sel':''}" data-o="${o}">${frog(o)}${o}</button>`).join('')}</div>`;
+ }else{
+  const chips=s.chips?(s.chips(A)||[]):[];
+  body=`<div class="aro">${ARROW}ここに かいてね</div><div class="frame">${s.pre?`<span class="pre">${esc(val(s.pre,ctx))}</span>`:''}<input type="text" id="t" maxlength="60" placeholder="${s.ph}" value="${esc(A[s.id]||'')}" autocomplete="off">${s.post?`<span class="post">${esc(s.post)}</span>`:''}</div><div class="hint" id="wn" style="text-align:left"></div>`+
+  (chips.length?`<div class="chips"><p>こまったら、えらんでみてね</p>${chips.map(c=>`<button class="chip wob" data-c="${esc(c)}">${esc(c)}</button>`).join('')}</div>`:'');
+ }
+ app.innerHTML=`<div class="top">${face(['smile','think','worry','think','think','think','smile','happy'][k])}<div class="bubble wob">${esc(q)}</div></div><div class="card wob">${body}</div>
+ <div class="nav"><button class="wob" id="back">もどる</button>${s.type==='choice'?'<span></span>':'<button class="wob go" id="next" disabled>できた！</button>'}</div>`;
+ const t=document.getElementById('t'),next=document.getElementById('next');
+ const save=()=>{if(t){const v=t.value.trim().replace(/[。．.]+$/,'');if(v)A[s.id]=v;else delete A[s.id]}};
+ if(t){const wn=document.getElementById('wn');const check=()=>{const bad=[...t.value].find(c=>/[\u4e00-\u9fff々]/.test(c)&&!K1.includes(c));wn.textContent=bad?`「${bad}」は まだ ならっていない かんじだよ。ひらがなで かいてね。`:(s.hint||'ならった かんじだけ つかえるよ。ほかは ひらがなで かこう');wn.style.color=bad?'#c0392b':'';next.disabled=!t.value.trim()||!!bad};t.addEventListener('input',check);t.focus();check();
+  app.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{t.value=b.dataset.c;check();t.focus()});
+  t.addEventListener('keydown',e=>{if(e.key==='Enter'&&!next.disabled)next.click()});
+  next.onclick=()=>{save();home()}}
+ app.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{A[s.id]=b.dataset.o;home()});
+ document.getElementById('back').onclick=()=>{save();home()};
+}
+function letter(){
+ const w=A.who,e=/[！？!?]$/.test(A.end)?A.end:A.end+'。';
+ return `${w}へ\n\n${w}は、${A.did}ね。そのとき、${A.feel} 気もちだったと おもいます。${w}は、${A.think}と おもいました。\n\n${WP(A)}${A.would}。${w}と くらべると、${A.compare}。わたしは、${A.learn}。\n\n${e}`;
+}
+function done(){
+ dots.innerHTML='';
+ const text=FINAL??letter();
+ app.innerHTML=`<div class="top">${face('happy')}<div class="bubble wob">できた！ すてきな てがみが かけたね。</div></div>
+ <div class="paper wob ${vertical?'v':''}" id="paper" ${vertical?'':'contenteditable="true"'}>${esc(text)}</div>
+ <div class="pair">${frog('がまくん')}${frog('かえるくん')}</div><div class="tools"><button class="wob" id="cp">コピーする</button><button class="wob" id="rd">よみあげる</button><button class="wob" id="vt">${vertical?'よこがき':'たてがき'}</button><button class="wob" id="pr">いんさつ</button><button class="wob" id="re">もういちど</button></div>
+ <p class="hint">まちがいが ないか、こえに だして よんでみよう。おかしい ところは、てがみを タップして なおせるよ。</p>
+ <div class="nav"><button class="wob" id="bk">もどる</button><span></span></div>`;
+ const pp=document.getElementById('paper');pp.addEventListener('input',()=>{FINAL=pp.innerText});
+ document.getElementById('cp').onclick=async e=>{const b=e.currentTarget,t=(FINAL??text);let ok=false;try{await navigator.clipboard.writeText(t);ok=true}catch(_){try{const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove()}catch(_){}}b.textContent=ok?'コピーしたよ！':'コピーできなかったよ';setTimeout(()=>{b.textContent='コピーする'},2000)};
+ document.getElementById('rd').onclick=()=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance((FINAL??text).replace(/\n+/g,'。'));u.lang='ja-JP';u.rate=.85;speechSynthesis.speak(u)}catch(_){}};
+ document.getElementById('vt').onclick=()=>{vertical=!vertical;done()};
+ document.getElementById('pr').onclick=()=>{try{window.print()}catch(_){}};
+ document.getElementById('re').onclick=()=>{A={};home()};
+ document.getElementById('bk').onclick=home;
+}
+home();
+</script>
+</body>
+</html>
